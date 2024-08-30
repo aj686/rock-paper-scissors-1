@@ -14,6 +14,18 @@ document.querySelector('.js-scissors-button')
         playGames('scissors');
     });
 
+// reset button
+document.querySelector('.js-reset-button')
+    .addEventListener('click', () => {
+        resetGame();
+    });
+
+// auto play button
+document.querySelector('.js-autoplay-button')
+    .addEventListener('click', () => {
+        autoPlay();
+    });
+
 // variable score check which one is truly, then store in score
 // score is object 
 let score = JSON.parse(localStorage.getItem('score')) || {
@@ -33,7 +45,7 @@ function playGames(playerMove) {
 
     const player = playerMove;
     // console.log(player);
-    const computer = computerMove(); // function as a value 
+    const computer = computerMove(); // function as a value and it will return the value and store in computer variable
 
     // store result
     let result = '';
@@ -101,4 +113,36 @@ function computerMove() {
     }
 
     return computerMove;
+}
+
+function resetGame() {
+    // object score
+    score = { wins: 0, losses: 0, ties: 0 };
+    // score.wins = 0;
+    // score.losses = 0;
+    // score.ties = 0;
+    localStorage.removeItem('score');
+    document.querySelector('.js-score').innerHTML = `Wins: ${score.wins} Losses:${score.losses}, Tie: ${score.ties}`
+}
+
+
+// autPlay() - where games start move itself
+let onPlay = false; // means games not play get
+let intervalId; // set on off interval
+
+function autoPlay() {
+    if(!onPlay) { 
+        // play auto game
+        onPlay = true;
+        intervalId = setInterval(() => {
+            //playGames() run 
+            const playerMove = computerMove(); // function as a value stored in variable
+            playGames(playerMove);
+        },
+        1000); // 1 second
+    } else {
+        // stop the auto play
+        clearInterval(intervalId);
+        onPlay = false;
+    }
 }
