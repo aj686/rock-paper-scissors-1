@@ -1,5 +1,17 @@
 {
+  "name": "games-all-in-one",
+  "version": "1.0.0",
+  "description": "Simple online games",
+  "main": "index.html",
+  "scripts": {
+    "build": "tailwindcss build src/rock-paper-scissors-input.css -o src/rock-paper-scissors-output.css --watch"
+  },
+  "dependencies": {
+    "flowbite": "^2.5.1"
+  },
   "devDependencies": {
     "tailwindcss": "^3.4.10"
-  }
+  },
+  "author": "AJ686",
+  "license": "MIT"
 }
